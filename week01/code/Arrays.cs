@@ -18,32 +18,72 @@ public static class Arrays
 
         // Assign a variable L that tracks the number of items added to the array and index with an initial value of 0.
         int index = 0;
-        // Use a for loop that starts with a i variable equals to 1, a conditional index<=length-1, and i++ incrementor.
-        for (double i = 1;  index <= length-1; i++ )
+
+        //Evaluates if the number is positive. If so, execute the code of the conditional statement, if not execute the code of the else statement
+        if (number>0)
         {
-            // Add a conditional if statement to check if the number is an integer number. If so, execute code inside the conditional if statement. If not, use an else statement.  
-            if (number % 1 == 0)
+            // Use a for loop that starts with a i variable equals to 1, a conditional index<=length-1, and i++ incrementor.
+            for ( double i = 1; index <= length - 1; i++)
             {
-                // Add a conditional if statement that evalutes i%number == 0, being number the starting number. If the evaluation is true, add the number i to the array and increase index by 1. 
-                if (i % number == 0)
+
+                // Add a conditional if statement to check if the number is an integer number and positive number. If so, execute code inside the conditional if statement. If not, use an else statement.  
+                if (number % 1 == 0)
                 {
-                    multiples[index] = i;
-                    index++;
+                    // Add a conditional if statement that evaluates if number i is multiple of number with i%number == 0, being number the starting number. If the evaluation is true, add the number i to the array and increase index by 1. 
+                    if (i % number == 0)
+                    {
+                        multiples[index] = i;
+                        index++;
+                    }
                 }
+                else
+                {
+                    // Add a conditional if statement that evalutes i/10 %number == 0, being number the starting number. If the evaluation is true, add the number i/10 to the array and increase index by 1. 
+                    if (i / 10 % number == 0)
+                    {
+                        multiples[index] = i / 10;
+                        index++;
+                    }
+                }
+
+
             }
-            else
+            // When the condition of the loop is met it stops and the array is returned.
+
+        }
+        else
+        {
+            // Use a for loop that starts with a i variable equals to 1, a conditional index<=length-1, and i++ incrementor.
+            for (double i = -1; index <= length - 1; i--)
             {
-                // Add a conditional if statement that evalutes i/10 %number == 0, being number the starting number. If the evaluation is true, add the number i/10 to the array and increase index by 1. 
-                if (i / 10 % number == 0)
+
+                // Add a conditional if statement to check if the number is an integer number and positive number. If so, execute code inside the conditional if statement. If not, use an else statement.  
+                if (number % 1 == 0)
                 {
-                    multiples[index] = i/10;
-                    index++;                    
+                    // Add a conditional if statement that evaluates if number i is multiple of number with i%number == 0, being number the starting number. If the evaluation is true, add the number i to the array and increase index by 1. 
+                    if (i % number == 0)
+                    {
+                        multiples[index] = i;
+                        index++;
+                    }
                 }
+                else
+                {
+                    // Add a conditional if statement that evalutes i/10 %number == 0, being number the starting number. If the evaluation is true, add the number i/10 to the array and increase index by 1. 
+                    if (i / 10 % number == 0)
+                    {
+                        multiples[index] = i / 10;
+                        index++;
+                    }
+                }
+
+
             }
-            
-            
-        }        
-        // When the condition of the loop is met it stops and the array is returned.
+            // When the condition of the loop is met it stops and the array is returned.
+        }
+        
+        
+        
 
         return multiples; // replace this return statement with your own
     }
