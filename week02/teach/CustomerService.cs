@@ -5,27 +5,78 @@
 public class CustomerService {
     public static void Run() {
         // Example code to see what's in the customer service queue:
-        // var cs = new CustomerService(10);
+        // var cs = new CustomerService(20);
         // Console.WriteLine(cs);
 
         // Test Cases
 
-        // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Test 1 
+        // Scenario: The user specify 0 as the maximum size of the customer service queue.
+        // Expected Result: Queue size equal to 10.
+
         Console.WriteLine("Test 1");
 
-        // Defect(s) Found: 
+        var cs = new CustomerService(0);
+        Console.WriteLine($"The maximum size is: {cs._maxSize}");
+
+        // Defect(s) Found: No defects
 
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Enqueue a new customer with the AddNewCustomer method
+        // Expected Result: The number of customers in the queue is 1.
         Console.WriteLine("Test 2");
 
-        // Defect(s) Found: 
+        cs = new CustomerService(4);
+        cs.AddNewCustomer();
 
+        Console.WriteLine($"The numbers of customers added is {cs._queue.Count}");
+
+        // Defect(s) Found: No Errors detected
+
+        Console.WriteLine("=================");
+
+        // Test 3
+        // Scenario: Adding more customers than the maximum size
+        // Expected Result: An error message is displayed
+        Console.WriteLine("Test 3");
+
+        var cs1 = new CustomerService(2);
+        cs1.AddNewCustomer();
+        cs1.AddNewCustomer();
+        cs1.AddNewCustomer();
+
+        Console.WriteLine($"The number of customers is {cs1._queue.Count} and the maximum size of customers i {cs1._maxSize}");
+
+        // Defect(s) Found: The condition in the if statement was set to display an error message only when the items in the queue were bigger than the maximum size not equal to.
+
+        Console.WriteLine("=================");
+
+        // Test 4
+        // Scenario: Dequeue a customer with the ServeCustomer function
+        // Expected Result: Displaying the customer dequeued details
+        Console.WriteLine("Test 4");
+
+        var cs2 = new CustomerService(2);
+        cs2.AddNewCustomer();
+        cs2.AddNewCustomer();
+
+        Console.WriteLine("The item dequeued is:");
+        cs2.ServeCustomer();
+
+        // Defect(s) Found: After dequeing the item in the front the function gets the item in the index 0 wich was located in the index 1 before the deque. This is why it is displaying that item and not the item dequeued.
+        Console.WriteLine("=================");
+
+        // Test 5
+        // Scenario: Try to serve a customer when the queue is empty
+        // Expected Result: An error message is displayed
+        Console.WriteLine("Test 5");
+
+        cs2.ServeCustomer();
+        cs2.ServeCustomer();
+
+        // Defect(s) Found: There is no code to display a message if the queue is empty
         Console.WriteLine("=================");
 
         // Add more Test Cases As Needed Below
@@ -67,7 +118,7 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count >= _maxSize) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
@@ -88,9 +139,14 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
-        var customer = _queue[0];
-        Console.WriteLine(customer);
+        if (_queue.Count > 0)
+        {
+            var customer = _queue[0];
+            Console.WriteLine(customer);
+            _queue.RemoveAt(0);
+        }
+        else { Console.WriteLine("There are no customer to serve"); }
+                
     }
 
     /// <summary>
