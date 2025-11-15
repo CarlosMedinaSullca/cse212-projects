@@ -22,7 +22,22 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var pairs = new HashSet<string>();
+        var result = new List<string>();
+
+        foreach (string i in words)
+        {
+            string reversed = new string(i.Reverse().ToArray());
+            if (pairs.Contains(reversed) && i[0] != i[1])
+            {
+                result.Add($"{i} & {reversed}");
+            }
+            else
+            {
+                pairs.Add(i);
+            }
+        }
+        return result.ToArray();
     }
 
     /// <summary>
@@ -43,6 +58,14 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            var degree = fields[3];
+            if(degrees.ContainsKey(degree))
+            {
+                degrees[degree] +=1;
+            } else
+            {
+                degrees.Add(degree, 1);
+            }
         }
 
         return degrees;
@@ -67,7 +90,53 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        string mword1 = word1.Replace(" ", "").ToLower();
+        string mword2 = word2.Replace(" ", "").ToLower();
+
+        var allWords = new Dictionary<char,int>();
+
+        if(mword1.Length != mword2.Length)
+        {
+            return false;
+        }
+
+        for (int i =0; i<mword1.Length; i++)
+        {
+            if (allWords.ContainsKey(mword1[i]))
+            {
+                allWords[mword1[i]]++;
+                
+            } else
+            {
+                allWords.Add(mword1[i], 1);
+            }   
+
+            if (allWords.ContainsKey(mword2[i]))
+            {
+                allWords[mword2[i]]++;
+                
+            } else
+            {
+                allWords.Add(mword2[i], 1);
+            }                      
+        }
+
+        //Verify wheter there are words that are not in both words nor the number of times each word is repeated in each word is different 
+
+        foreach(var a in allWords)
+        {
+            if(a.Value % 2 != 0)
+            {
+                return false;
+            } 
+        }
+
+        // if (allWords.Values.Sum()%2 == 0 && allWords.Count !=allWords.Values.Sum() )
+        // {
+        //     return true;
+        // }
+
+        return true;
     }
 
     /// <summary>
