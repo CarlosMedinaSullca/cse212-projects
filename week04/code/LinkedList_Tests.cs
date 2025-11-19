@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 // DO NOT MODIFY THIS FILE
@@ -229,6 +230,11 @@ public class ReverseTests
         ll.InsertHead(4);
         ll.InsertHead(2);
         ll.InsertHead(5);
+        foreach(var item in ll.Reverse())
+        {
+            Debug.WriteLine(item);
+            
+        }
         Assert.AreEqual("<IEnumerable>{2, 2, 3, 4, 2, 5}", ll.Reverse().AsString());
     }
 }
