@@ -187,6 +187,15 @@ public class LinkedList : IEnumerable<int>
 
         while (curr is not null)
         {
+            //Altertnative solution
+            // ------------------------
+            // if (curr.Data == oldValue)
+            // {
+            //     curr.Data = newValue;
+            // }
+            // curr = curr.Next;
+            //------------------------
+            
             if (curr.Data == oldValue)
             {
                 // If the old value is located at the head then replace at the head
