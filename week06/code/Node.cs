@@ -1,3 +1,6 @@
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
+
 public class Node
 {
     public int Data { get; set; }
@@ -12,6 +15,10 @@ public class Node
     public void Insert(int value)
     {
         // TODO Start Problem 1
+        if (value == Data)
+        {
+            return;
+        }
 
         if (value < Data)
         {
@@ -34,12 +41,61 @@ public class Node
     public bool Contains(int value)
     {
         // TODO Start Problem 2
-        return false;
+        if (value == Data)
+        {
+            return true;
+        } else
+        {
+            if (value < Data)
+            {
+                if (Left is null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return Left.Contains(value);
+                }
+                
+            } else
+            {
+                if (Right is null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return Right.Contains(value);
+                }
+            }
+
+        }
+
+        // return false;
     }
 
-    public int GetHeight()
+    
+
+    public int GetHeight( int height=1)
     {
         // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
+    
+        if ( Left is null && Right is null)
+        {
+            
+            return height;
+        }
+        else
+        {
+           // Evaluate Left?.GetHeight():
+           // If Left is not null, call GetHeight() on it
+           // If Left is null, the expression returns null
+           // Apply ?? 0:
+           // If the result from step 1 is not null, use that value
+           // If the result from step 1 is null, use 0 instead
+
+            return Math.Max(Left?.GetHeight(height + 1) ?? 0, Right?.GetHeight(height + 1) ?? 0 );
+            
+        }
     }
 }
